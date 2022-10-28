@@ -9,6 +9,11 @@ RUN git clone https://github.com/frmo24042/GitInsight.git
 WORKDIR /App/GitInsight
 
 RUN dotnet restore
+
+WORKDIR /App/GitInsight/GitInsight
+RUN dotnet add package LibGit2Sharp --version 0.27.0-preview-0182
+
+WORKDIR /App/GitInsight
 # Build and publish a release
 RUN dotnet publish -c Release -o out
 
