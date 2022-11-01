@@ -25,7 +25,11 @@ public class Program
               else
               {
                   Console.WriteLine("Commit frequency mode");
-                  CommitTracker.getCommitsPerDay(@"../.git", "Frederik Gantriis Møller").ToList().ForEach(Console.WriteLine);
+                  var dateFormat = "dd-MM-yyyy";
+                  foreach ((DateTime date, int amount) in CommitTracker.getCommitsPerDay(@"../.git", "Frederik Gantriis Møller"))
+                  {
+                    Console.WriteLine($"{date.ToString(dateFormat, CultureInfo.InvariantCulture)} {amount}");
+                  }
               }
           });
     }
