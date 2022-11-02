@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitInsight", "GitInsight\GitInsight.csproj", "{10C9437E-F54B-4D23-845F-C76CC99B3465}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitInsight.Tests", "GitInsight.Tests\GitInsight.Tests.csproj", "{93F39860-15D0-4565-9BE6-50B73D4999A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{10C9437E-F54B-4D23-845F-C76CC99B3465}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10C9437E-F54B-4D23-845F-C76CC99B3465}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10C9437E-F54B-4D23-845F-C76CC99B3465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F39860-15D0-4565-9BE6-50B73D4999A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F39860-15D0-4565-9BE6-50B73D4999A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F39860-15D0-4565-9BE6-50B73D4999A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F39860-15D0-4565-9BE6-50B73D4999A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
