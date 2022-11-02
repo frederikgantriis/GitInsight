@@ -14,6 +14,12 @@ public class Program
     }
     private static void Main(string[] args)
     {
+
+        var repository = new Repository(@"../.git"); //TODO: perhaps from options class
+        var gitInsightRepository = new GitInsightRepository(repository);
+        var tracker = new CommitTracker(gitInsightRepository);
+
+
         Parser.Default.ParseArguments<Options>(args)
           .WithParsed<Options>(o =>
           {
@@ -26,7 +32,7 @@ public class Program
               {
                   Console.WriteLine("Commit frequency mode");
                   var dateFormat = "dd-MM-yyyy";
-                  foreach ((DateTime date, int amount) in CommitTracker.getCommitsPerDay(@"../.git", "Frederik Gantriis Møller"))
+                  foreach ((DateTime date, int amount) in tracker.getCommitsPerDay("Frederik Gantriis Møller"))
                   {
                     Console.WriteLine($"{date.ToString(dateFormat, CultureInfo.InvariantCulture)} {amount}");
                   }
