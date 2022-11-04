@@ -1,11 +1,12 @@
 namespace GitInsight;
 
+using LibGit2Sharp;
 public class CommitTracker
 {
-    GitInsightRepository _repository;
-    public CommitTracker(GitInsightRepository insightRepository)
+    IRepository _repository;
+    public CommitTracker(IRepository repository)
     {
-        _repository = insightRepository;
+        _repository = repository;
     }
 
 
