@@ -16,8 +16,7 @@ public class Program
     {
 
         var repository = new Repository(@"../.git"); //TODO: perhaps from options class
-        var gitInsightRepository = new GitInsightRepository(repository);
-        var tracker = new CommitTracker(gitInsightRepository);
+        var tracker = new CommitTracker(repository);
 
 
         Parser.Default.ParseArguments<Options>(args)
