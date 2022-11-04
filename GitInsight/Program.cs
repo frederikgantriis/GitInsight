@@ -18,24 +18,33 @@ public class Program
         var repository = new Repository(@"../.git"); //TODO: perhaps from options class
         var tracker = new CommitTracker(repository);
 
-
         Parser.Default.ParseArguments<Options>(args)
-          .WithParsed<Options>(o =>
-          {
-              if (o.Author)
-              {
-                  //TODO: Implement method that Format output with author
-                  Console.WriteLine($"Author mode.");
-              }
-              else
-              {
-                  Console.WriteLine("Commit frequency mode");
-                  var dateFormat = "dd-MM-yyyy";
-                  foreach ((DateTime date, int amount) in tracker.getCommitsPerDay("Frederik Gantriis Møller"))
-                  {
-                    Console.WriteLine($"{date.ToString(dateFormat, CultureInfo.InvariantCulture)} {amount}");
-                  }
-              }
-          });
+        .WithParsed<Options>(o =>
+        {
+            if (o.Author)
+            {
+                foreach ((string author, var commits) in tracker.GetCommitsByAuthor())
+                {
+                    Console.WriteLine(author);
+                    foreach ((var date, int amount) in commits)
+                    {
+                        Console.WriteLine($"    {FormatDateAndAmount(date, amount)}");
+                    }
+                }
+            }
+            else
+            {
+                foreach ((DateTime date, int amount) in tracker.GetCommitsPerDay())
+                {
+                    Console.WriteLine(FormatDateAndAmount(date, amount));
+                }
+            }
+        });
+
+    }
+    private static string FormatDateAndAmount(DateTime date, int amount)
+    {
+        var dateFormat = "dd-MM-yyyy";
+        return $"{date.ToString(dateFormat, CultureInfo.InvariantCulture)} {amount}"; 
     }
 }

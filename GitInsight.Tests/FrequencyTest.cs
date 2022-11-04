@@ -27,7 +27,7 @@ public class FrequencyTest : IDisposable
         var signature = new Signature("Magnus Larsen", "magnus@larsen.dk", date);
         _testRepo.Commit("besked", signature, signature, new CommitOptions() { AllowEmptyCommit= true});
         
-        var result = _tracker.getCommitsPerDay().First();
+        var result = _tracker.GetCommitsPerDay().First();
         result.Should().Be((new DateTime(2000, 10, 20), 1));
     }
 
