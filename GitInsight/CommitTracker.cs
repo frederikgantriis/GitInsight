@@ -30,13 +30,12 @@ public class CommitTracker
 
     public IEnumerable<(string Author, IEnumerable<(DateTime, int)>)> GetCommitsByAuthor()
     {
-        var authors = _repository.Commits.Select(c => c.Author.Name).Distinct();
+        var authors = _repository.Commits.Select(c => c.Author).DistinctBy(c => c.Email);
 
         foreach (var author in authors)
         {
-            //Should maybe be by email
-            var authorCommits = _repository.Commits.Where(c => c.Author.Name == author);
-            yield return (author, GetCommitsPerDay(authorCommits));
+            var authorCommits = _repository.Commits.Where(c => c.Author.Email == author.Email);
+            yield return (author.Name, GetCommitsPerDay(authorCommits));
         }
     }
 
