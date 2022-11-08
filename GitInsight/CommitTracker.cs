@@ -34,6 +34,7 @@ public class CommitTracker
 
         foreach (var author in authors)
         {
+            //Should maybe be by email
             var authorCommits = _repository.Commits.Where(c => c.Author.Name == author);
             yield return (author, GetCommitsPerDay(authorCommits));
         }
