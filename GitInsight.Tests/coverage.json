@@ -1,0 +1,81 @@
+{
+  "GitInsight.dll": {
+    "/home/magnus/Code/ITU/bdsa/GitInsight/GitInsight/CommitTracker.cs": {
+      "GitInsight.CommitTracker": {
+        "System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<System.DateTime,System.Int32>> GitInsight.CommitTracker::GetCommitsPerDay()": {
+          "Lines": {
+            "20": 2,
+            "21": 2,
+            "22": 2
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<System.DateTime,System.Int32>> GitInsight.CommitTracker::GetCommitsPerDay(System.Collections.Generic.IEnumerable`1<LibGit2Sharp.Commit>)": {
+          "Lines": {
+            "25": 4,
+            "26": 4,
+            "27": 4,
+            "28": 8,
+            "29": 4
+          },
+          "Branches": []
+        },
+        "System.Void GitInsight.CommitTracker::.ctor(LibGit2Sharp.IRepository)": {
+          "Lines": {
+            "7": 4,
+            "8": 4,
+            "9": 4,
+            "10": 4
+          },
+          "Branches": []
+        }
+      },
+      "GitInsight.CommitTracker/<>c": {
+        "System.String GitInsight.CommitTracker/<>c::<GetCommitsByAuthor>b__4_0(LibGit2Sharp.Commit)": {
+          "Lines": {
+            "33": 4
+          },
+          "Branches": []
+        }
+      },
+      "GitInsight.CommitTracker/<>c__DisplayClass4_0": {
+        "System.Boolean GitInsight.CommitTracker/<>c__DisplayClass4_0::<GetCommitsByAuthor>b__1(LibGit2Sharp.Commit)": {
+          "Lines": {
+            "38": 2
+          },
+          "Branches": []
+        }
+      },
+      "GitInsight.CommitTracker/<GetCommitsByAuthor>d__4": {
+        "System.Boolean GitInsight.CommitTracker/<GetCommitsByAuthor>d__4::MoveNext()": {
+          "Lines": {
+            "32": 2,
+            "35": 10,
+            "36": 2,
+            "39": 2,
+            "40": 2,
+            "41": 2
+          },
+          "Branches": [
+            {
+              "Line": 35,
+              "Offset": 296,
+              "EndOffset": 134,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 35,
+              "Offset": 296,
+              "EndOffset": 301,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}

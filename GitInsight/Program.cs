@@ -1,9 +1,12 @@
-﻿namespace GitInsight;
+﻿//dotnet run --a (author mode)
+namespace GitInsight;
 
 using LibGit2Sharp;
 using System.Globalization;
 using CommandLine;
+using System.Diagnostics.CodeAnalysis;
 
+[ExcludeFromCodeCoverage]
 public class Program
 {
     public class Options
@@ -12,10 +15,11 @@ public class Program
         public bool Author { get; set; }
 
     }
+
     private static void Main(string[] args)
     {
 
-        var repository = new Repository(@"../.git"); //TODO: perhaps from options class
+        var repository = new Repository(@"../.git");
         var tracker = new CommitTracker(repository);
 
         Parser.Default.ParseArguments<Options>(args)
@@ -42,6 +46,7 @@ public class Program
         });
 
     }
+
     private static string FormatDateAndAmount(DateTime date, int amount)
     {
         var dateFormat = "dd-MM-yyyy";
