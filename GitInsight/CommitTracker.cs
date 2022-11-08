@@ -16,32 +16,26 @@ public class CommitTracker
     /// </summary>
     /// <param name="path">path to a local git repository</param>
     /// <param name="author">optional: only get commits by author</param>
-    public IEnumerable<(DateTime, int)> getCommitsPerDay(string author = "")
+    public IEnumerable<(DateTime, int)> GetCommitsPerDay()
     {
-        IDictionary<DateTime, int> commitsPerDay = new Dictionary<DateTime, int>();
-        foreach (var commit in _repository.Commits)
+        return GetCommitsPerDay(_repository.Commits);
+    }
+
+    public IEnumerable<(DateTime, int)> GetCommitsPerDay(IEnumerable<Commit> commits)
+    {
+        return _repository.Commits
+            .GroupBy(c => c.Author.When.Date)
+            .Select(c => (c.Key, c.Count()));
+    }
+
+    public IEnumerable<(string Author, IEnumerable<(DateTime, int)>)> GetCommitsByAuthor()
+    {
+        var authors = _repository.Commits.Select(c => c.Author.Name).Distinct();
+
+        foreach (var author in authors)
         {
-            if (author != "" && author != commit.Author.Name)
-            {
-                continue;
-            }
-
-            var commitDateKey = commit.Author.When.Date;
-
-            if (!commitsPerDay.ContainsKey(commitDateKey))
-            {
-                commitsPerDay[commitDateKey] = 1;
-            }
-            else
-            {
-                commitsPerDay[commitDateKey]++;
-            }
-
-        }
-
-        foreach (var commitDate in commitsPerDay)
-        {
-            yield return (commitDate.Key, commitDate.Value);
+            var authorCommits = _repository.Commits.Where(c => c.Author.Name == author);
+            yield return (author, GetCommitsPerDay(authorCommits));
         }
     }
 
