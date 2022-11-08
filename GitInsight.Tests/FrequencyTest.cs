@@ -1,7 +1,6 @@
 namespace GitInsight.Tests;
 
 using GitInsight;
-using Moq;
 using LibGit2Sharp;
 using FluentAssertions;
 
