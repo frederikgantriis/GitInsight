@@ -1,13 +1,19 @@
 # README
 
+## Overleaf
+
+Link to [Overleaf](https://www.overleaf.com/5821361738chhyxxvjsbrj)
+
 ## Run with Docker
 
 To build image:
-    docker build -t git-insight -f Dockerfile .
-
+```bash
+> docker build -t git-insight -f Dockerfile .
+```
 To run image in container:
-    docker run -it --rm git-insight
-
+```bash
+> docker run -it --rm git-insight
+```
 ## Initial setup of database
 
 ```bash
