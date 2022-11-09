@@ -35,6 +35,6 @@ public class FrequencyTest : IDisposable
     public void Dispose()
     {
         _testRepo.Dispose();
-        Directory.Delete(_path, recursive: true);
+        //Directory.Delete(_path, recursive: true);
     }
 }
