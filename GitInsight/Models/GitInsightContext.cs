@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace GitInsight.Models;
@@ -99,22 +97,3 @@ public partial class GitInsightContext : DbContext
 
   partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
-
-
-
-// q: how do we structure a database that keeps track of results of a commit history analysis on a repository?
-// a: we need a table for results, a table for users, and a table for repositories
-
-// q: what are the columns in the results table?
-// a: id, user_id, repo_id, date, commits_per_day
-
-// q: what are the columns in the users table?
-// a: id, name
-
-// q: what are the columns in the repositories table?
-// a: id, url, last_commit_id
-
-// q: what are the relationships between the tables?
-// a: results.user_id -> users.id
-//    results.repo_id -> repositories.id
-

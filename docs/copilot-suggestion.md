@@ -1,5 +1,6 @@
 # Copilot-suggestions
 
+## Project Structure
 <!--
 q: how should we structure this project?
 a: we should have a core project that contains the data models and the data access layer
@@ -27,9 +28,7 @@ q: how should we structure the unit tests?
 a: we should have a test class for each controller in the application
    we should have a test class for each repository in the application -->
 
-
-
-
+## Database Structure
 <!--
 // q: how do we structure a database that keeps track of commits in a repository?
 // a: we need a table for commits, a table for users, and a table for repositories
@@ -46,6 +45,5 @@ a: we should have a test class for each controller in the application
 // q: what are the relationships between the tables?
 // a: commits.user_id -> users.id
 //    commits.repo_id -> repositories.id
-
 
  -->
