@@ -10,22 +10,23 @@ public class CommitRepository : ICommitRepository
         _dbContext = dbContext;
     }
 
-
-    (Response Response, int commitId) Create(CommitCreateDto commitCreateDto)
-    {
-        throw new NotImplementedException();
-    }
-    CommitDto Read(int commitId)
-    {
-        throw new NotImplementedException();
-    }
-    Response Update(CommitUpdateDto commitUpdateDto)
-    {
-        throw new NotImplementedException();
-    }
-    Response Delete(int commitId)
+    public (Response Response, int commitId) Create(CommitCreateDto commitCreateDto)
     {
         throw new NotImplementedException();
     }
 
-} 
+    public Response Delete(int commitId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CommitDto Read(int commitId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Response Update(CommitUpdateDto commitUpdateDto)
+    {
+        throw new NotImplementedException();
+    }
+}

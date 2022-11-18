@@ -9,19 +9,22 @@ public class RepositoryRepository : IRepositoryRepository
         _dbContext = dbContext;
     }
 
-    (Response Response, int repositoryId) Create(RepositoryCreateDto repositoryCreateDto)
+    public (Response Response, int repositoryId) Create(RepositoryCreateDto repositoryCreateDto)
     {
         throw new NotImplementedException();
     }
-    RepositoryDto Read(int repositoryId)
+
+    public Response Delete(int repositoryId)
     {
         throw new NotImplementedException();
     }
-    Response Update(RepositoryUpdateDto repositoryUpdateDto)
+
+    public RepositoryDto Read(int repositoryId)
     {
         throw new NotImplementedException();
     }
-    Response Delete(int repositoryId)
+
+    public Response Update(RepositoryUpdateDto repositoryUpdateDto)
     {
         throw new NotImplementedException();
     }

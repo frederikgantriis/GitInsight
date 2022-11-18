@@ -9,20 +9,23 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    (Response Response, int userId) Create(UserCreateDto userCreateDto)
+    (Response Response, int userId) IUserRepository.Create(UserCreateDto userCreateDto)
     {
         throw new NotImplementedException();
     }
-    UserDto Read(int userId)
+
+    UserDto IUserRepository.Read(int userId)
     {
         throw new NotImplementedException();
     }
-    Response Update(UserUpdateDto userUpdateDto)
+
+    public Response Update(int repoId, int lastCommitId)
     {
         throw new NotImplementedException();
     }
-    Response Delete(int userId)
+
+    Response IUserRepository.Delete(int userId)
     {
-        throw new NotImplementedException(); 
+        throw new NotImplementedException();
     }
 }
