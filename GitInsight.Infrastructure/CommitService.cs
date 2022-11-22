@@ -1,10 +1,10 @@
 namespace GitInsight;
 
 using LibGit2Sharp;
-public class CommitTracker
+public class CommitService
 {
   IRepository _repository;
-  public CommitTracker(IRepository repository)
+  public CommitService(IRepository repository)
   {
     _repository = repository;
   }
@@ -30,6 +30,11 @@ public class CommitTracker
 
   public IEnumerable<(string Author, IEnumerable<(DateTime, int)>)> GetCommitsByAuthor()
   {
+    // return _repository.Commits
+    //     .GroupBy(c => c.Author.Name)
+    //     .Select(c => (c.Key, GetCommitsPerDay(c)));
+
+    
     var authors = _repository.Commits.Select(c => c.Author).DistinctBy(c => c.Email);
 
     foreach (var author in authors)
@@ -38,5 +43,15 @@ public class CommitTracker
       yield return (author.Name, GetCommitsPerDay(authorCommits));
     }
   }
+
+  public bool isLatest()
+  {
+    var latestCommit = _repository.Commits.Last();
+    var latestSavedCommit = _repository.Commits.Last(); //FIXME: should be latest saved commit in database
+
+    return latestCommit.Sha == latestSavedCommit.Sha;
+  }
+  
+
 
 }
