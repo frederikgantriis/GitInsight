@@ -5,6 +5,8 @@ using LibGit2Sharp;
 using System.Globalization;
 using CommandLine;
 using System.Diagnostics.CodeAnalysis;
+using GitInsight.Infrastructure;
+
 
 [ExcludeFromCodeCoverage]
 public class Program
@@ -19,8 +21,8 @@ public class Program
   private static void Main(string[] args)
   {
 
-    var repository = new Repository(@"../.git");
-    var tracker = new CommitTracker(repository);
+    var repository = new LibGit2Sharp.Repository(@"../.git");
+    var tracker = new CommitService(repository);
 
     Parser.Default.ParseArguments<Options>(args)
     .WithParsed<Options>(o =>

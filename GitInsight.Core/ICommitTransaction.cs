@@ -1,6 +1,6 @@
 namespace GitInsight.Core;
 
-public interface ICommitRepository
+public interface ICommitTransaction
 {
   (Response Response, int commitId) Create(CommitCreateDto commitCreateDto);
   CommitDto Read(int commitId);

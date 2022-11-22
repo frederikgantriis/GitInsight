@@ -1,20 +1,20 @@
 namespace GitInsight.Infrastructure;
 
-public class UserRepository : IUserRepository
+public class UserTransaction : IUserTransaction
 {
-    private readonly GitInsightDbContext _dbContext;
+    private readonly GitInsightContext _dbContext;
 
-    public UserRepository(GitInsightDbContext dbContext)
+    public UserTransaction(GitInsightContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    (Response Response, int userId) IUserRepository.Create(UserCreateDto userCreateDto)
+    public (Response Response, int userId) Create(UserCreateDto userCreateDto)
     {
         throw new NotImplementedException();
     }
 
-    UserDto IUserRepository.Read(int userId)
+    public UserDto Read(int userId)
     {
         throw new NotImplementedException();
     }
@@ -24,7 +24,7 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    Response IUserRepository.Delete(int userId)
+    public Response Delete(int userId)
     {
         throw new NotImplementedException();
     }

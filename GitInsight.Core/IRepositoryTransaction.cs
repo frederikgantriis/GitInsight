@@ -1,6 +1,6 @@
 namespace GitInsight.Core;
 
-public interface IRepositoryRepository
+public interface IRepositoryTransaction
 {
     (Response Response, int repositoryId) Create(RepositoryCreateDto repositoryCreateDto);
     RepositoryDto Read(int repositoryId);

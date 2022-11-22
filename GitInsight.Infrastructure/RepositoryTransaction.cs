@@ -1,10 +1,10 @@
 namespace GitInsight.Infrastructure;
 
-public class RepositoryRepository : IRepositoryRepository
+public class RepositoryTransaction : IRepositoryTransaction
 {
-    private readonly GitInsightDbContext _dbContext;
+    private readonly GitInsightContext _dbContext;
 
-    public RepositoryRepository(GitInsightDbContext dbContext)
+    public RepositoryTransaction(GitInsightContext dbContext)
     {
         _dbContext = dbContext;
     }

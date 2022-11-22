@@ -1,6 +1,6 @@
 namespace GitInsight.Core;
 
-public interface IUserRepository
+public interface IUserTransaction
 {
     (Response Response, int userId) Create(UserCreateDto userCreateDto);
     UserDto Read(int userId);
