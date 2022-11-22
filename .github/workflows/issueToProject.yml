@@ -1,22 +1,20 @@
-name: Auto Assign to Project(s)
+name: Add bugs to bugs project
 
 on:
   issues:
-    types: [opened, labeled]
-  pull_request:
-    types: [opened, labeled]
-  issue_comment:
-    types: [created]
-env:
-  GITHUB_TOKEN: ${{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}}
+    types:
+      - opened
 
 jobs:
-  assign_one_project:
+  add-to-project:
+    name: Add issue to project
     runs-on: ubuntu-latest
-    name: Assign to One Project
     steps:
-    - name: Assign to One Project
-      uses: srggrs/assign-one-project-github-action@1.3.1
-      if: github.event.action == 'opened'
-      with:
-        project: 'https://github.com/users/frederikgantriis/projects/7'
+      - uses: actions/add-to-project@RELEASE_VERSION
+        with:
+          # You can target a repository in a different organization
+          # to the issue
+          project-url: https://github.com/users/frederikgantriis/projects/7
+          github-token: ${{ secrets.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 }}
+          labeled: bug, needs-triage
+          label-operator: OR
