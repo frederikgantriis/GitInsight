@@ -21,7 +21,7 @@ public class Program
   private static void Main(string[] args)
   {
 
-    var repository = new Repository(@"../.git");
+    var repository = new LibGit2Sharp.Repository(@"../.git");
     var tracker = new CommitService(repository);
 
     Parser.Default.ParseArguments<Options>(args)

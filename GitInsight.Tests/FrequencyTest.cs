@@ -8,14 +8,14 @@ public class FrequencyTest : IDisposable
 {
 
     Repository _testRepo;
-    CommitTracker _tracker;
+    CommitService _tracker;
     string _path;
     public FrequencyTest() 
     {
         _path = @"../TestRepo";
         Repository.Init(_path);
         _testRepo = new Repository(_path);
-        _tracker = new CommitTracker(_testRepo);
+        _tracker = new CommitService(_testRepo);
     }
 
     [Theory]
