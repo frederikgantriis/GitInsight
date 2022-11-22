@@ -18,29 +18,31 @@ public class CommitService
   /// <param name="author">optional: only get commits by author</param>
   public IEnumerable<(DateTime, int)> GetCommitsPerDay()
   {
-    return GetCommitsPerDay(_repository.Commits);
+    if (!isLatest())
+    {
+      return AnalyseCommitsPerDay(_repository.Commits);
+    } 
+    else 
+    {
+      //TODO: get from database
+    }
   }
 
-  public IEnumerable<(DateTime, int)> GetCommitsPerDay(IEnumerable<Commit> commits)
+  public IEnumerable<(DateTime, int)> AnalyseCommitsPerDay(IEnumerable<Commit> commits)
   {
     return _repository.Commits
         .GroupBy(c => c.Author.When.Date)
         .Select(c => (c.Key, c.Count()));
   }
 
-  public IEnumerable<(string Author, IEnumerable<(DateTime, int)>)> GetCommitsByAuthor()
+  public IEnumerable<(string Author, IEnumerable<(DateTime, int)>)> AnalyseCommitsByAuthor()
   {
-    // return _repository.Commits
-    //     .GroupBy(c => c.Author.Name)
-    //     .Select(c => (c.Key, GetCommitsPerDay(c)));
-
-    
     var authors = _repository.Commits.Select(c => c.Author).DistinctBy(c => c.Email);
 
     foreach (var author in authors)
     {
       var authorCommits = _repository.Commits.Where(c => c.Author.Email == author.Email);
-      yield return (author.Name, GetCommitsPerDay(authorCommits));
+      yield return (author.Name, AnalyseCommitsPerDay(authorCommits));
     }
   }
 
