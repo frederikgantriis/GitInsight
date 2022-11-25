@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GitInsight.Infrastructure;
-using NuGet.Protocol.Core.Types;
+using Microsoft.EntityFrameworkCore;
 
 namespace GitInsight.Controllers
 {
@@ -19,90 +19,6 @@ namespace GitInsight.Controllers
         public GitInsightController(GitInsightContext context)
         {
             _context = context;
-        }
-
-        // GET: api/GitInsight
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<GitInsight>>> GetGitInsights()
-        {
-            return await _context.GitInsights.ToListAsync();
-        }
-
-        // GET: api/GitInsight/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GitInsight>> GetGitInsight(int id)
-        {
-            var gitInsight = await _context.GitInsights.FindAsync(id);
-
-            if (gitInsight == null)
-            {
-                return NotFound();
-            }
-
-            return gitInsight;
-        }
-
-        // PUT: api/GitInsight/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGitInsight(int id, GitInsight gitInsight)
-        {
-            if (id != gitInsight.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(gitInsight).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GitInsightExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/GitInsight
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<GitInsight>> PostGitInsight(GitInsight gitInsight)
-        {
-            _context.GitInsights.Add(gitInsight);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGitInsight", new { id = gitInsight.Id }, gitInsight);
-        }
-
-        // DELETE: api/GitInsight/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGitInsight(int id)
-        {
-            var gitInsight = await _context.GitInsights.FindAsync(id);
-            if (gitInsight == null)
-            {
-                return NotFound();
-            }
-
-            _context.GitInsights.Remove(gitInsight);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool GitInsightExists(int id)
-        {
-            return _context.GitInsights.Any(e => e.Id == id);
         }
 
         //Create a new user
