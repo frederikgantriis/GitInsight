@@ -1,4 +1,4 @@
-namespace GitInsight;
+namespace GitInsight.Services;
 
 using LibGit2Sharp;
 public class CommitService

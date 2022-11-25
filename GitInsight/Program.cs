@@ -1,11 +1,10 @@
 ﻿//dotnet run --a (author mode)
 namespace GitInsight;
 
-using LibGit2Sharp;
 using System.Globalization;
 using CommandLine;
 using System.Diagnostics.CodeAnalysis;
-using GitInsight.Infrastructure;
+using GitInsight.Services;
 
 
 [ExcludeFromCodeCoverage]
