@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GitInsight.Infrastructure\GitInsight.Infrastructure.csproj" />
+    <ProjectReference Include="..\GitInsight.Services\GitInsight.Services.csproj" />
   </ItemGroup>
 
 </Project>

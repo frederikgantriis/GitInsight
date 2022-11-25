@@ -1,6 +1,6 @@
 namespace GitInsight.Tests;
 
-using GitInsight;
+using GitInsight.Services;
 using LibGit2Sharp;
 using FluentAssertions;
 
