@@ -16,100 +16,80 @@ namespace GitInsight.Controllers
 
         private readonly GitInsightContext _context;
 
+        private CommitService _commitService;
+
         public GitInsightController(GitInsightContext context)
         {
             _context = context;
+            _commitService = new CommitService(repository: (LibGit2Sharp.IRepository)_context.Repositories);
         }
 
         //Create a new user
         [HttpPost("CreateUser")]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        public JsonResult CreateUser([FromBody] User user)
         {
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            _context.SaveChanges();
+            return new JsonResult("User created");
         }
 
         //Get a user by id
         [HttpGet("GetUser/{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public JsonResult GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = _context.Users.Find(id);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
+            return new JsonResult(user);
         }
 
         //Get a user by name
         [HttpGet("GetUserByName/{name}")]
-        public async Task<ActionResult<User>> GetUserByName(string name)
+        public JsonResult GetUserByName(string name)
         {
-            var user = await _context.Users.FindAsync(name);
+            var user = _context.Users.Where(u => u.Name == name).FirstOrDefault();
 
             if (user == null)
             {
-                return NotFound();
+                return new JsonResult("User not found");
             }
 
-            return user;
+            return new JsonResult(user);
         }
 
         //Get all users
         [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public JsonResult GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            var users = _context.Users.ToList();
+            return new JsonResult(users);
         }
 
         //Delete a user
         [HttpDelete("DeleteUser/{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public JsonResult DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
+            var user = _context.Users.Find(id);
             _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return NoContent();
+            return new JsonResult("User deleted");
         }
 
         //Update a user
         [HttpPut("UpdateUser/{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User user)
+        public JsonResult UpdateUser(int id, User user)
         {
-            if (id != user.Id)
+            var userToUpdate = _context.Users.Find(id);
+            if (userToUpdate == null)
             {
-                return BadRequest();
+                return new JsonResult("User not found");
             }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                userToUpdate.Name = user.Name;
+                _context.SaveChanges();
+                return new JsonResult("User updated successfully");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         private bool UserExists(int id)
@@ -119,85 +99,72 @@ namespace GitInsight.Controllers
 
         //Create a new repository
         [HttpPost("CreateRepository")]
-        public async Task<ActionResult<Repository>> CreateRepository(Repository repository)
+        public JsonResult CreateRepository(Repository repository)
         {
             _context.Repositories.Add(repository);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return CreatedAtAction("GetRepository", new { id = repository.Id }, repository);
+            return new JsonResult("Repository created");
         }
 
         //Get a repository by id
         [HttpGet("GetRepository/{id}")]
-        public async Task<ActionResult<Repository>> GetRepository(int id)
+        public JsonResult GetRepository(int id)
         {
-            var repository = await _context.Repositories.FindAsync(id);
+            var repository = _context.Repositories.Find(id);
 
             if (repository == null)
             {
-                return NotFound();
+                return new JsonResult("Repository not found");
             }
 
-            return repository;
-        }
-
-        //Get a repository by name
-        [HttpGet("GetRepositoryByName/{name}")]
-        public async Task<ActionResult<Repository>> GetRepositoryByName(string name)
-        {
-            var repository = await _context.Repositories.FindAsync(name);
-
-            if (repository == null)
-            {
-                return NotFound();
-            }
-
-            return repository;
+            return new JsonResult(repository);
         }
 
         //Get all repositories
         [HttpGet("GetAllRepositories")]
-        public async Task<ActionResult<IEnumerable<Repository>>> GetAllRepositories()
+        public JsonResult GetAllRepositories()
         {
-            return await _context.Repositories.ToListAsync();
+            var repositories = _context.Repositories.ToList();
+            return new JsonResult(repositories);
         }
 
         //Delete a repository
         [HttpDelete("DeleteRepository/{id}")]
-        public async Task<IActionResult> DeleteRepository(int id)
+        public JsonResult  DeleteRepository(int id)
         {
-            var repository = await _context.Repositories.FindAsync(id);
+            var repository = _context.Repositories.Find(id);
             if (repository == null)
             {
-                return NotFound();
+                return new JsonResult("Repository not found");
             }
 
             _context.Repositories.Remove(repository);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return NoContent();
+            return new JsonResult("Repository deleted successfully");
         }
 
         //Update a repository
         [HttpPut("UpdateRepository/{id}")]
-        public async Task<IActionResult> UpdateRepository(int id, Repository repository)
+        public JsonResult UpdateRepository(int id, Repository repository)
         {
             if (id != repository.Id)
             {
-                return BadRequest();
+                return new JsonResult("Bad Request");
             }
 
             _context.Entry(repository).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!RepositoryExists(id))
                 {
-                    return NotFound();
+                    return new JsonResult("Not Found");
                 }
                 else
                 {
@@ -205,7 +172,7 @@ namespace GitInsight.Controllers
                 }
             }
 
-            return NoContent();
+            return new JsonResult("No Content");
         }
 
         private bool RepositoryExists(int id)
@@ -225,74 +192,79 @@ namespace GitInsight.Controllers
 
         //Get a commit by id
         [HttpGet("GetCommit/{id}")]
-        public async Task<ActionResult<Commit>> GetCommit(int id)
+        public JsonResult GetCommit(int id)
         {
-            var commit = await _context.Commits.FindAsync(id);
+            var commit = _context.Commits.Find(id);
 
             if (commit == null)
             {
-                return NotFound();
+                return new JsonResult("Commit not found");
             }
 
-            return commit;
+            return new JsonResult(commit);
         }
 
         //Get all commits
         [HttpGet("GetAllCommits")]
-        public async Task<ActionResult<IEnumerable<Commit>>> GetAllCommits()
+        public JsonResult GetAllCommits()
         {
-            return await _context.Commits.ToListAsync();
+            return new JsonResult(_context.Commits.ToList());
         }
 
         //Delete a commit
         [HttpDelete("DeleteCommit/{id}")]
-        public async Task<IActionResult> DeleteCommit(int id)
+        public JsonResult DeleteCommit(int id)
         {
-            var commit = await _context.Commits.FindAsync(id);
+            var commit = _context.Commits.Find(id);
             if (commit == null)
             {
-                return NotFound();
+                return new JsonResult("Commit not found");
             }
 
             _context.Commits.Remove(commit);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            return NoContent();
+            return new JsonResult("Deleted Successfully");
         }
 
         //Update a commit
         [HttpPut("UpdateCommit/{id}")]
-        public async Task<IActionResult> UpdateCommit(int id, Commit commit)
+        public JsonResult UpdateCommit(int id, Commit commit)
         {
             if (id != commit.Id)
             {
-                return BadRequest();
+                return new JsonResult("Error");
             }
 
             _context.Entry(commit).State = EntityState.Modified;
+            _context.SaveChanges();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommitExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return new JsonResult("Updated Successfully");
         }
 
         private bool CommitExists(int id)
         {
             return _context.Commits.Any(e => e.Id == id);
+        }
+
+        //Get commits per day
+        [HttpGet("GetAllCommitsFromRepository/{id}")]
+        public JsonResult GetAllCommitsFromRepository(CommitService data)
+        {
+            var result = data.GetCommitsPerDay();
+            var result1 = _commitService.GetCommitsPerDay();
+
+            return new JsonResult(result);
+        }
+
+        //Get commits by author
+        [HttpGet("GetCommitsByAuthor/{author}")]
+        public JsonResult GetCommitsByAuthor(CommitService data)
+        {
+            var result = data.GetCommitsByAuthor();
+            var result1 = _commitService.GetCommitsByAuthor();
+
+            return new JsonResult(result);
         }
     }
 }
